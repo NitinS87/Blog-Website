@@ -1,0 +1,122 @@
+db.products.insertOne({
+  _id: 3,
+  name: "Rubber",
+  price: 1,
+  stock: 32,
+  reviews: [
+    {
+      authorName: "Sally",
+      rating: 5,
+      review: "Fantastic"
+    },
+    {
+      authorName: "John",
+      rating: 5,
+      review: "Superb!"
+    }
+  ]
+})
+
+const mongoose =  require('mongoose');
+
+mongoose.connect("mongodb://localhost:27017/fruitsDB", { useNewUrlParser: true});
+
+const fruitSchema = new mongoose.Schema({
+//name: String,
+name: {
+type: String,
+required: [true, "Please enter name"]
+},
+//rating: Number,
+//added validations
+rating: {
+type: Number,
+min: 1,
+max: 10
+},
+review: String
+});
+
+const Fruit = mongoose.model("Fruit", fruitSchema);
+
+const fruit = new Fruit({
+name: "Apple",
+rating: 8,
+review: "Pretty solid as a fruit."
+});
+
+//fruit.save();
+
+const banana = new Fruit({
+name: "banana",
+rating: 8,
+review: "Pretty solid as a fruit."
+});
+
+const orange = new Fruit({
+name: "orange",
+rating: 8,
+review: "Pretty solid as a fruit."
+});
+
+Fruit.insertMany([oarnge, banana], function(err){
+if(err){
+console.log(err);
+}
+else{
+//to close the connection
+mongoose.connection.close();
+console.log("Succesfully save all the fruits to fruitsDB");
+}
+});
+
+Fruit.find(function(err, fruits){
+if(err){
+console.log(err);
+}
+else{
+console.log(fruits);
+
+//to just see their names
+fruits.forEach(function(fruit){
+console.log(fruit.name);
+})
+}
+});
+
+Fruit.updateOne({_id: "jhvhjhhvhjvhj54556"}, {name: "Peach"}, function(err){
+if(err){
+console.log(err);
+}
+else{
+console.log("Successfully updated the document");
+}
+});
+
+Fruit.deleteOne({_id: "jhvhjhhvhjvhj54556"}, function(err){
+if(err){
+console.log(err);
+}
+else{
+console.log("Successfully deleted");
+}
+});
+
+const personSchema = new mongoose.Schema({
+name: String,
+age: Number,
+favouriteFruit: fruitSchema
+});
+
+const Person = mongoose.model("Person", personSchema);
+
+const pineapple = new Fruit({
+name: "Pineapple",
+score: 9,
+review: "Great fruit"
+})
+const person = new Person({
+name: "John",
+age: 37
+favouriteFruit: pineapple
+});
