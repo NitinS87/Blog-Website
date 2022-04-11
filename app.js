@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static("public"));
 
 mongoose.connect(
-  "mongodb+srv://Nitin243:Nitin243@cluster0.ab7cf.mongodb.net/blogDb?retryWrites=true&w=majority/posts",
+  "mongodb+srv://Nitin243:<password>@cluster0.ab7cf.mongodb.net/blogDb?retryWrites=true&w=majority/posts",
   {
     useNewUrlParser: true,
   }
