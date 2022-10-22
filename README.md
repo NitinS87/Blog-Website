@@ -1,2 +1,2 @@
-# Blog-Website https://blog-website-nitin-heroku.herokuapp.com/
+# Blog-Website
 This is my blog website
